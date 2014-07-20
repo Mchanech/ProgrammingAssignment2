@@ -2,16 +2,19 @@
 ## for later use. Code is heavily based on makeVector.R and
 ## makeCacheMatrix.R, provided by the course.
 
-## Constructs a list with get(), set(), and solve() 
-## functions for a matrix x
+## Constructs a list whose elements are simple functions
+## get(), set(), and solve() for a matrix x
 
 makeCacheMatrix <- function(x = matrix()) {
-	m <- NULL
-    	set <- function(y) {
-            x <<- y
+	m <- NULL	## Initializes location for inverted matrix to go
+    	
+	## Populates the original matrix
+	set <- function(y) {
+            x <<- y	## Populates the original matrix
 	    m <<- NULL
 	}
 	get <- function() x
+	## 
 	setinverse <- function(solve) m <<- solve
 	getinverse <- function() m
 	list(set = set, get = get, setinverse = setinverse,
