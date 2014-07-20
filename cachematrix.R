@@ -1,5 +1,6 @@
 ## Constructs an invertible matrix and caches its inverse
-## for later use
+## for later use. Code is heavily based on makeVector.R and
+## makeCacheMatrix.R, provided by the course.
 
 ## Constructs a list with get(), set(), and solve() 
 ## functions for a matrix x
