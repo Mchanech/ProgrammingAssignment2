@@ -6,19 +6,25 @@
 ## get(), set(), and solve() for a matrix x
 
 makeCacheMatrix <- function(x = matrix()) {
-	m <- NULL	## Initializes location for inverted matrix to go
+	inv <- NULL	## Initializes location for inverted matrix to go
     	
 	set <- function(y) {
-            x <<- y	## Populates the original matrix in the child env
-	    m <<- NULL
+            x <<- y	## Stores original matrix in the child env
+	    inv <<- NULL
 	}
+
+	## Retrieves original matrix
 	get <- function() x
-	## 
-	setinverse <- function(solve) m <<- solve
-	getinverse <- function() m
+
+	## Stores inverse matrix locally
+	setinverse <- function(solve) inv <<- solve
+	
+	## Retrieves inverse matrix
+	getinverse <- function() inv
+	
+	## Returns a list containing the functions above
 	list(set = set, get = get, setinverse = setinverse,
 	     getinverse = getinverse)
-
 }
 
 
@@ -28,14 +34,14 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
    
-   	## Return a matrix that is the inverse of 'x'
-	m <- x$getinverse()
-	if(!is.null(m)) {
+   	## Stores a matrix that is the inverse of 'x' locally
+	inv <- x$getinverse()
+	if(!is.null(inv)) {	## Returns inv as long as it exists
 		message("getting inverted matrix")
-		return(m)
+		return(inv)
 	}
-	data <- x$get()	  ## Retrieves matrix 'x' 
-	m <- solve(data)  ## Generates inverse of 'x'
-	x$setinverse(m)	  ## Caches inverse
-	m		  ## Returns inverse
+	data <- x$get()	    ## Retrieves matrix 'x' 
+	inv <- solve(data)  ## Generates inverse of 'x'
+	x$setinverse(m)	    ## Caches inverse
+	inv		    ## Returns inverse
 }
